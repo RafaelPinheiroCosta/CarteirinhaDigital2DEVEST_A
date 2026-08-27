@@ -33,57 +33,9 @@ fun LoginScreen(
         LocalContext.current
     )
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement
-            .spacedBy(10.dp, Alignment.CenterVertically),
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Text(
-            text = "Login",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
-        )
-        TextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Text(
-                    text = "Email"
-                )
-            }
-        )
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Text(
-                    text = "Senha"
-                )
-            }
-        )
-        Button(
-            onClick = {
-                navController.navigate(Routes.HomeAluno.route)
-            },
-            shape= RoundedCornerShape(size=4.dp),
-            border = BorderStroke(
-                width = 2.dp,
-                color = Color.Black
-            ),
-            colors = ButtonDefaults.buttonColors(
-                contentColor = MaterialTheme.colorScheme.secondary
-            ),
-            modifier = Modifier
-                .fillMaxWidth(.6f)
-        ) {
-            Text(
-                text = "Entrar",
-                color = Color.White
-            )
-        }
-    }
+    LoginContent(
+
+    )
 }
 @Preview(
     showBackground = true,
