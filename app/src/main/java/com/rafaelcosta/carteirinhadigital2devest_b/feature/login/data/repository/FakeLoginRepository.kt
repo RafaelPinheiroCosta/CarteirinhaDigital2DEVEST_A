@@ -7,7 +7,7 @@ class FakeAuthRepository : LoginRepository {
     override suspend fun login(login: String, senha: String): Result<UsuarioLogado> {
         delay(1500)
 
-        return if (login == "aluno" && senha == "123") {
+        return if (login.equals( "aluno") && senha.equals("123")) {
             Result.success(
                 UsuarioLogado(
                     id = "1",
