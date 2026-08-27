@@ -15,6 +15,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,25 +25,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.rafaelcosta.carteirinhadigital2devest_b.app.navigation.Routes
+import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.domain.model.UsuarioLogado
+import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.presentation.LoginEvent
+import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.presentation.LoginViewModel
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navController: NavController = NavController(
-        LocalContext.current
-    )
+    onLoginSucesso: (UsuarioLogado)->Unit,
+    viewModel: LoginViewModel = viewModel()
 ) {
-    LoginContent(
 
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState.usuarioLogado) {
+        uiState.usuarioLogado?.let{ usuario->
+            viewModel.onEvent(LoginEvent.OnNavegacaoRealizada)
+            onLoginSucesso(usuario)
+        }
+    }
+
+    LoginContent(
+        uiState = uiState,
+        onEvent = viewModel::onEvent,
+        modifier = modifier.fillMaxSize()
     )
-}
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen()
 }
