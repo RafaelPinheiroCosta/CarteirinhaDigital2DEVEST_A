@@ -1,34 +1,31 @@
 package com.rafaelcosta.carteirinhadigital2devest_b.feature.home_aluno.presentation.screen
 
-import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentComposer
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.rafaelcosta.carteirinhadigital2devest_b.app.navigation.Routes
 import com.rafaelcosta.carteirinhadigital2devest_b.feature.home_aluno.presentation.component.BotaoNavegacao
+import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.domain.model.UsuarioLogado
 
 @Composable
 fun HomeScreen(
     navController: NavController = NavController(
         LocalContext.current
     ),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    usuarioLogado: UsuarioLogado
 ) {
     Column(
         modifier = modifier,
@@ -38,6 +35,21 @@ fun HomeScreen(
         Text(
             text = "Aluno",
             fontSize = 30.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = usuarioLogado.nome,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = usuarioLogado.curso,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = usuarioLogado.turma,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
 
@@ -74,6 +86,13 @@ fun HomeScreenPreview() {
     HomeScreen(
         modifier = Modifier
             .padding(20.dp)
-            .fillMaxSize()
+            .fillMaxSize(),
+        usuarioLogado = UsuarioLogado(
+            id="1",
+            nome = "Rafael Costa",
+            curso="Desenvolvimento de Sistemas",
+            turma = "2DEVEST-A",
+            token = "jhhhhhhh"
+        )
     )
 }
