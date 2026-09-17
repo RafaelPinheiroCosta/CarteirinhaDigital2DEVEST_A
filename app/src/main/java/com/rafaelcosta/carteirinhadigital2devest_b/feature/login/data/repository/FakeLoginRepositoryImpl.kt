@@ -3,7 +3,7 @@ package com.rafaelcosta.carteirinhadigital2devest_b.feature.login.data.repositor
 import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.domain.model.UsuarioLogado
 import kotlinx.coroutines.delay
 
-class FakeAuthRepository : LoginRepository {
+class FakeLoginRepositoryImpl : LoginRepository {
     override suspend fun login(login: String, senha: String): Result<UsuarioLogado> {
         delay(1500)
 

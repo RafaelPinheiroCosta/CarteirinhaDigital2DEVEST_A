@@ -3,5 +3,5 @@ package com.rafaelcosta.carteirinhadigital2devest_b.feature.login.data.repositor
 import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.domain.model.UsuarioLogado
 
 interface LoginRepository {
-    suspend fun login(login: String, senha: String): Result<UsuarioLogado>
+    suspend fun login( usuario:String, senha:String): Result<UsuarioLogado>
 }
