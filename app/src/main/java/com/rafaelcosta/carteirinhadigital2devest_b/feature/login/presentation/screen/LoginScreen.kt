@@ -39,7 +39,6 @@ fun LoginScreen(
     onLoginSucesso: (UsuarioLogado)->Unit,
     viewModel: LoginViewModel = viewModel()
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState.usuarioLogado) {
@@ -48,10 +47,9 @@ fun LoginScreen(
             onLoginSucesso(usuario)
         }
     }
-
     LoginContent(
         uiState = uiState,
-        onEvent = viewModel::onEvent,
-        modifier = modifier.fillMaxSize()
+        viewModel = viewModel,
+        modifier = modifier.fillMaxSize(),
     )
 }
