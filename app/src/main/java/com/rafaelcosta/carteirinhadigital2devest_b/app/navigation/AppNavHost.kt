@@ -22,17 +22,19 @@ import com.rafaelcosta.carteirinhadigital2devest_b.feature.unidadecurriculares.p
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    sessionViewModel: SessionViewModel= viewModel()
+    sessionViewModel: SessionViewModel = viewModel()
 ) {
     val usuarioLogado by sessionViewModel.usuarioLogado.collectAsStateWithLifecycle()
     NavHost(
         navController = navController,
         startDestination = Routes.Login.route
     ) {
+
+        val usuario = usuarioLogado
+
         composable(Routes.Login.route) {
             LoginScreen(
-                onLoginSucesso = {
-                    usuario ->
+                onLoginSucesso = { usuario ->
                     sessionViewModel.setUsuarioLogado(usuario)
                     navController.navigate(Routes.HomeAluno.route)
                 }
@@ -46,12 +48,11 @@ fun AppNavHost(
             }
         }
         composable(Routes.HomeAluno.route) {
-            val usuario = usuarioLogado
-            if(usuario == null){
+            if (usuario == null) {
                 LaunchedEffect(Unit) {
                     navController.navigate((Routes.Login.route))
                 }
-            }else {
+            } else {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     HomeScreen(
                         navController = navController,
@@ -62,10 +63,17 @@ fun AppNavHost(
             }
         }
         composable(Routes.UCAluno.route) {
-            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                UnidadeCurricularScreen(
-                    modifier = Modifier.padding(innerPadding)
-                )
+            if (usuario == null) {
+                LaunchedEffect(Unit) {
+                    navController.navigate((Routes.Login.route))
+                }
+            }else{
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    UnidadeCurricularScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        token = usuario.token
+                    )
+                }
             }
         }
     }

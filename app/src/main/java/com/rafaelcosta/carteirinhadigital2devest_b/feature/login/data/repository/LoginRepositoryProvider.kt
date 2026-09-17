@@ -10,7 +10,7 @@ object LoginRepositoryProvider {
         return if (USE_FAKE_REPOSITORY) {
             FakeLoginRepositoryImpl()
         } else {
-            ApiLoginRepositoryImpl(NetworkFactory.createAuthApi())
+            ApiLoginRepositoryImpl(NetworkFactory.createLoginApi())
         }
     }
 }

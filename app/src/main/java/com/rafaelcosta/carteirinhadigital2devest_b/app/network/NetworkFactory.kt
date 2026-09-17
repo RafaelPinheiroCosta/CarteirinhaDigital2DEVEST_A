@@ -2,6 +2,7 @@ package com.rafaelcosta.carteirinhadigital2devest_b.app.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.rafaelcosta.carteirinhadigital2devest_b.feature.login.data.remote.service.AuthApi
+import com.rafaelcosta.carteirinhadigital2devest_b.feature.unidadecurriculares.data.remote.service.UnidadeCurricularApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -22,14 +23,32 @@ object NetworkFactory {
         .addInterceptor(loggingInterceptor)
         .build()
 
-    fun createAuthApi(baseUrl: String = BASE_URL): AuthApi {
-        val retrofit = Retrofit.Builder()
+    fun createRetrofit(
+        baseUrl: String = BASE_URL
+    ): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(
+                json.asConverterFactory("application/json"
+                    .toMediaType()
+                )
+            )
             .build()
-
-        return retrofit.create(AuthApi::class.java)
     }
+
+    fun createUnidadeCurricularApi(
+        baseUrl: String = BASE_URL
+    ): UnidadeCurricularApi {
+        return createRetrofit(baseUrl)
+            .create(UnidadeCurricularApi::class.java)
+    }
+    fun createLoginApi(
+        baseUrl: String = BASE_URL
+    ): AuthApi {
+        return createRetrofit(baseUrl)
+            .create(AuthApi::class.java)
+    }
+
 
 }
