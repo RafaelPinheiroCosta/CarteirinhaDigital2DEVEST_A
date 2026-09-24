@@ -25,12 +25,13 @@ fun AppNavHost(
     sessionViewModel: SessionViewModel = viewModel()
 ) {
     val usuarioLogado by sessionViewModel.usuarioLogado.collectAsStateWithLifecycle()
+    val usuario = usuarioLogado
+
     NavHost(
         navController = navController,
         startDestination = Routes.Login.route
     ) {
 
-        val usuario = usuarioLogado
 
         composable(Routes.Login.route) {
             LoginScreen(
